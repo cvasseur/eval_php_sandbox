@@ -1,0 +1,16 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="eval-result" attributes="code result">
+    <template>
+        <core-ajax id="ajax" url="../index.php" method="post" params='{"code": "{{ code }}"}' on-core-response="{{onResult}}" ></core-ajax>
+        <style type="text/css"> :host pre { padding: 16px; margin: 16px; width: 50%;} </style>
+        <pre>{{ result }}</pre>
+    </template>
+  <script>
+    Polymer({
+        codeChanged: function () { this.code && this.$.ajax.go()},
+        onResult : function () { this.result = this.$.ajax.response }
+    });
+  </script>
+</polymer-element>

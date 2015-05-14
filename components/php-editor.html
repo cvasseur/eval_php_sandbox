@@ -1,0 +1,28 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+
+<script src="../bower_components/CodeMirror/lib/codemirror.js"></script>
+<script src="../bower_components/CodeMirror/mode/php/php.js"></script>
+<script src="../bower_components/CodeMirror/mode/javascript/javascript.js"></script>
+<script src="../bower_components/CodeMirror/mode/clike/clike.js"></script>
+
+<polymer-element name="php-editor">
+  <template>
+    <link rel="stylesheet" href="../bower_components/CodeMirror/lib/codemirror.css">
+    <link rel="stylesheet" href="../bower_components/CodeMirror/theme/mbo.css">
+    <paper-shadow z="2">
+        <div id="editor"></div>
+    </paper-shadow>
+  </template>
+  <script>
+    Polymer({
+        ready: function () {
+            var element = this
+            var editor = CodeMirror(this.$.editor, {mode:  "text/x-php", theme: 'mbo', lineNumbers: true})
+            var keyMap = []
+            keyMap['Ctrl-Enter'] = function(cm) {element.fire('run', cm.getDoc().getValue())}
+            editor.addKeyMap(keyMap)
+        }
+    });
+  </script>
+</polymer-element>
